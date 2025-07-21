@@ -17,7 +17,7 @@ ready = {
     'blue': [],
     'green': []
 }
-pwd = 'SucaZizza'
+pwd = 'fake_password'  # Change this to your desired password
 authToken = 0
 
 @app.route('/check_orders')

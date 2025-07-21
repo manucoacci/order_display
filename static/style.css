@@ -171,6 +171,16 @@ h1 {
     border-color: #ef7f1b;
 }
 
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #103682;
+    text-align: right;
+    padding-right: 40px;
+    font-size: 8px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     h1 {

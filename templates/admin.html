@@ -13,9 +13,9 @@
         <select name="color" value="{{ lastColor }}" required>
             <!-- per aggiungere dei colori, si aggiunge qui -->
             <option value="{{ lastColor }}" hidden>{{ lastColor }}</option>
-            <option value="white">Bianco</option>
-            <option value="blue">Blu</option>
-            <option value="green">Verde</option>
+            <option value="white">white</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
         </select>
         <button type="submit" name="add">Aggiungi</button>
     </form>
@@ -37,6 +37,9 @@
                 {% endfor %}
             </ul>    
         {% endfor %}
+    </div>
+    <div class="footer">
+        ST-Bolo
     </div>
 </body>
 </html>
