@@ -8,33 +8,17 @@
     <h1>Gestione Ordini</h1>
     
     <form method="POST">
-        <input autofocus="true" style="height: 300px width: 100px; font-size: 50px ;" type="number" name="order_number" placeholder="Numero ordine" required>
-        <input type="checkbox" name="force" value="true"> Forza
-        <select name="color" value="{{ lastColor }}" required>
-            <!-- per aggiungere dei colori, si aggiunge qui -->
-            <option value="{{ lastColor }}" hidden>{{ lastColor }}</option>
-            <option value="white">white</option>
-            <option value="blue">blue</option>
-            <option value="green">green</option>
-        </select>
+        <input autofocus="true" style="height: 300px width: 100px; font-size: 50px ;" type="text" name="order_name" placeholder="nome ordine" required>
         <button type="submit" name="add">Aggiungi</button>
     </form>
     <h2>Ordini Attuali</h2>
     <div class="admin-list">
-        {% for readyC in ready %}
+        {% for order in orders %}
             <ul>
-                {% if readyC == "white"%}
-                <li style="color: black;">{{ readyC }}</li>
-                {% else %}
-                <li style="color: {{ readyC }};">{{ readyC }}</li>
-                {% endif %}
-                {% for order in ready[readyC] %}
-                    <form method="POST">
-                        <input type="hidden" name="order_number" value="{{ order }}">
-                        <input type="hidden" name="color" value="{{ readyC }}">
-                        <button class="admin-button" type="submit" name="remove">{{ order }}</button>
-                    </form>
-                {% endfor %}
+                <form method="POST">
+                    <input type="hidden" name="order_name" value="{{ order }}">
+                    <button class="admin-button" type="submit" name="remove">{{ order }}</button>
+                </form>
             </ul>    
         {% endfor %}
     </div>

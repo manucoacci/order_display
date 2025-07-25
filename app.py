@@ -1,29 +1,16 @@
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
-# per aggiungere dei colori, si aggiunge qui
-orders =  {
-    'white': [],
-    'blue': [],
-    'green': []
-}
-# per aggiungere dei colori, si aggiunge qui
-orders['white'] = [i for i in range(1, 9999)]
-orders['blue'] = [i for i in range(1, 9999)]
-orders['green'] = [i for i in range(1, 9999)]
-ready = {
-# per aggiungere dei colori, si aggiunge qui
-    'white': [],
-    'blue': [],
-    'green': []
-}
+
+orders =  []
+
 pwd = 'fake_password'  # Change this to your desired password
 authToken = 0
 
 @app.route('/check_orders')
 def check_orders():
-    global ready
-    return {'ready': ready}
+    global orders
+    return {'orders': orders}
 
 @app.route('/')
 def index():
@@ -36,26 +23,19 @@ def admin():
         return redirect('/login')
     if request.method == 'POST':
         print("POST request received")
-        req = {"order_number": request.form.get('order_number'), "color": request.form.get('color'), "force": request.form.get('force')}
+        req = {"order_name": request.form.get('order_name')}
         print("Request:", req)
         if 'add' in request.form and req:
             print("Add request received")
-            print((int(req['order_number'])) in orders[req['color']])
-            if req['force'] == 'true':
-                print("Force add request received")
-                ready[req['color']].append(int(req['order_number']))
-                print("Order added:", req['order_number'], "to", req['color'])
-            elif((int(req['order_number'])) in orders[req['color']]):
-                orders[req['color']].remove(int(req['order_number']))
-                ready[req['color']].append(int(req['order_number']))
-                print("Order added:", req['order_number'], "to", req['color'])
+            orders.append(req['order_name'])
+            print("Order added:", req['order_name'])
         elif 'remove' in request.form and req:
             print("Remove request received")
             try:
-                ready[req['color']].remove(int(req['order_number']))
+                orders.remove(req['order_name'])
             except ValueError:
                 pass
-    return render_template('admin.html', orders=orders, ready=ready, lastColor= req['color'] if req else "white")
+    return render_template('admin.html', orders=orders)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
